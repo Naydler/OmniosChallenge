@@ -8,6 +8,8 @@ page = requests.get(base_url + 'index.html')
 soup = BeautifulSoup(page.content, "html.parser")
 articles = soup.find_all("article", class_="product_pod")
 
+books = dict()
+
 for article in articles:
     id = uuid1()
     title_container = article.find('h3')
@@ -21,4 +23,14 @@ for article in articles:
     
     image_container = article.find('img', class_="thumbnail")
     image = base_url + image_container.attrs['src']
+    
+    books[id] = {
+        'id': id,
+        'title': title,
+        'rating' : rating,
+        'price' : price,
+        'image' : image   
+    }
+    
+    print(books)
     
