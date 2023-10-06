@@ -2,6 +2,7 @@ import requests
 from uuid import uuid1
 from bs4 import BeautifulSoup
 from deep_translator import MyMemoryTranslator
+from currency_converter import CurrencyConverter
 
 #define the base url for the website scraping
 base_url = 'http://books.toscrape.com/'
@@ -51,6 +52,9 @@ for article in articles:
     text_es = MyMemoryTranslator(source='en-US', target='es-ES').translate(text)
     text_de = MyMemoryTranslator(source='en-US', target='de-DE').translate(text)
     
+    price_eur = CurrencyConverter().convert(price, 'GBP', 'EUR')
+    final_price_eur = round(float(price_eur), 2)
+    
     books[id] = {
         'id': id,
         'title': title,
@@ -60,5 +64,6 @@ for article in articles:
         'text' : text,
         'text_es': text_es,
         'text_de': text_de,
+        'price_eur': final_price_eur
     }
     
