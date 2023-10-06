@@ -1,3 +1,4 @@
+import json
 import requests
 from uuid import uuid1
 from bs4 import BeautifulSoup
@@ -66,4 +67,6 @@ for article in articles:
         'text_de': text_de,
         'price_eur': final_price_eur
     }
+with open('books.json', 'w') as outfile:
+    json.dump(books, outfile)
     
